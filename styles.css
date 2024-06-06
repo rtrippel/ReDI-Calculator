@@ -5,6 +5,7 @@
     --color4: #008000;
     --color5: #0000FF;
     --color6: #8B00FF;
+
     --bg-color: linear-gradient(to right,
     var(--color1) 0%,
     var(--color1) 16.67%,
@@ -19,27 +20,19 @@
     var(--color6) 83.34%,
     var(--color6) 100%);
 }
-** {
-    margin: 0;
-    padding: 0;
-}
 
 body {
-    position: relative;
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    /*align-items: center;*/
-    /*justify-content: center;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     height: 100vh;
-    width: 100vw;
+
+    touch-action: manipulation; /* Disable double-tap zoom */
+    user-select: none; /* Prevent text selection */
 }
 
 .main-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -47,14 +40,14 @@ body {
     gap: 1rem;
     border: 1px solid black;
     width: 40vw;
+    min-width: 260px;
+    max-width: 500px;
     height: 80vh;
     background-color: rgba(213, 208, 208, 0.73);
 }
 
 .input-container, .numbers-container, .operators-container {
-    flex-grow: 1;
     width: 80%;
-    /*width: 80vw;*/
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -62,91 +55,109 @@ body {
 }
 
 .input-container {
+    position: relative;
     border: 1px solid red;
     height: 14%;
     background-color: rgba(164, 193, 145, 0.73);
 }
 
 input {
+    padding-block: 0;
+    padding-inline: 0;
     width: 90%;
     height: 70%;
     text-align: center;
-    font-size: 1.5rem;
+    font-size: clamp(0.9rem, 2vw, 1.8rem);
+}
+
+#additional-placeholder {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    font-size: 0.8em;
+    color: gray;
 }
 
 .numbers-container, .operators-container {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
-    gap: 1%;
-    flex-grow: 2;
+    gap: 3%;
 }
 
 .numbers-container {
     border: 1px solid green;
-    height: 50%;
+    height: 40%;
     background-color: rgba(213, 208, 208, 0.8);
+    position: relative;
 }
 
 .element {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 20%;
+    height: 19%;
     border-radius: 15px;
 }
 
 .numbers-container .element {
-    width: 30%;
+    width: 28%;
+    min-width: 50px;
 }
 
 .operators-container .element {
-    width: 23%;
-    height: 30%;
+    width: 20%;
+    height: 23%;
+    min-width: 40px;
 }
 
 .numbers-container .element {
     background: var(--bg-color);
 }
 
+/*.numbers-container .element:last-child {*/
+/*    width: 50%;*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    !*right: -2rem;*!*/
+
+/*    font-size: 10px;*/
+/*    writing-mode: vertical-rl;*/
+/*    text-orientation: mixed;*/
+/*    !*transform: rotate(15deg); !* Угол наклона *!*!*/
+/*    !*white-space: nowrap;*!*/
+/*}*/
+
 .numbers-container .element:last-child {
     width: 70%;
 }
 
+.operators-container .element:nth-last-child(7) {
+    width: 45%;
+    min-width: 50px;
+}
+
 .operators-container .element:nth-last-child(2), .operators-container .element:last-child {
-    height: 40%;
+    height: 27%;
     width: 40%;
 }
 
-.numbers-container button {
-    font-weight: bold;
-}
-
-
 .outlined-text {
-    font-size: 3rem;
     color: black;
-    /*???*/
-    text-shadow: 2px 2px 0px white,
-    -2px -2px 0px white,
-    -2px 2px 0px white,
-    2px -2px 0px white,
-    2px 0px 0px white,
-    -2px 0px 0px white,
-    0px 2px 0px white,
-    0px -2px 0px white;
-}
-
-.numbers-container .outlined-text {
-    font-size: 3rem;
-}
-
-.operators-container .outlined-text {
-    font-size: 3.5rem;
+    font-weight: bold;
+    font-size: clamp(1.4rem, 3.5vw, 2.8rem);
+    text-shadow: 0.1vh 0.1vh 0px gainsboro,
+    -0.1vh -0.1vh 0px gainsboro,
+    -0.1vh 0.1vh 0px gainsboro,
+    0.1vh -0.1vh 0px gainsboro,
+    0.1vh 0px 0px gainsboro,
+    -0.1vh 0px 0px gainsboro,
+    0px 0.1vh 0px gainsboro,
+    0px -0.1vh 0px gainsboro;
 }
 
 .operators-container {
     border: 1px solid blue;
-    height: 25%;
+    height: 30%;
     background-color: rgba(255, 255, 255, 0.47);
 }
